@@ -67,14 +67,23 @@
     <Compile Include="Classes\TagClass.cs" />
     <Compile Include="Classes\Usuario.cs" />
     <Compile Include="Classes\Visita.cs" />
+    <Compile Include="ConexaoBanco.cs" />
+    <Compile Include="Infra\CustomDatabaseInitializer.cs" />
+    <Compile Include="Mapeamento\VisitaConfig.cs" />
+    <Compile Include="Mapeamento\TagClassConfig.cs" />
+    <Compile Include="Mapeamento\PostTagConfig.cs" />
+    <Compile Include="Mapeamento\PostConfig.cs" />
+    <Compile Include="Mapeamento\ImagemConfig.cs" />
+    <Compile Include="Mapeamento\DownloadConfig.cs" />
+    <Compile Include="Mapeamento\ComentarioConfig.cs" />
+    <Compile Include="Mapeamento\ArquivoConfig.cs" />
+    <Compile Include="Mapeamento\UsuarioConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mapeamento\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
