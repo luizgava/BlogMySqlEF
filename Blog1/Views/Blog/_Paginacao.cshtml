@@ -1,0 +1,26 @@
+﻿@model Blog1.Models.ListarPostsViewModel
+@if (Model.TotalPaginas > 1)
+{
+    var proximaPagina = -1;
+
+    if (Model.PaginaAtual < Model.TotalPaginas)
+    {
+        proximaPagina = this.Model.PaginaAtual + 1;
+    }
+
+    <div class="pagination">
+        @if (this.Model.PaginaAtual > 1)
+        {
+            @Html.ActionLink("Página anterior", "Index", new { tag = Model.Tag, pesquisa = Model.Pesquisa, pagina = Model.PaginaAtual - 1 }, new { rel = "prev" })
+            
+            if (proximaPagina != -1)
+            {
+                <text>|</text>
+            }
+        }
+        @if (proximaPagina != -1)
+        {
+            @Html.ActionLink("Próxima página", "Index", new { tag = Model.Tag, pesquisa = Model.Pesquisa, pagina = proximaPagina }, new { rel = "next" });
+        }
+    </div>
+}

@@ -30,8 +30,8 @@ namespace Blog1.DB
         public DbSet<Visita> Visitas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            Database.SetInitializer<ConexaoBanco>(new CustomDatabaseInitializer<ConexaoBanco>());
+            {
+                Database.SetInitializer<ConexaoBanco>(new CustomDatabaseInitializer<ConexaoBanco>());
             
             modelBuilder.Configurations.Add(new ArquivoConfig());
             modelBuilder.Configurations.Add(new ComentarioConfig());

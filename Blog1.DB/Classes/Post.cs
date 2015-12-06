@@ -20,5 +20,6 @@ namespace Blog1.DB.Classes
         public virtual IList<Arquivo> Arquivos { get; set; }
         public virtual IList<Imagem> Imagens { get; set; }
         public virtual IList<Visita> Visitas { get; set; }
+        public virtual IList<PostTag> PostTag { get; set; }
     }
 }

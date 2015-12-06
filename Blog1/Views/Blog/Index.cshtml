@@ -1,0 +1,15 @@
+﻿@model Blog1.Models.ListarPostsViewModel
+
+<h1>Posts</h1>
+
+@foreach (var item in Model.Posts)
+{
+    <h2>@Html.ActionLink(item.Titulo, "EditarPost", "Administracao", new { id = item.Id }, null)</h2>
+    <div>
+        @item.DataPublicacao
+    </div>
+    <div>
+        @item.Resumo
+    </div>
+}
+@Html.Partial("_Paginacao", Model)

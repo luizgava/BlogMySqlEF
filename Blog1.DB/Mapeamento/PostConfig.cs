@@ -65,6 +65,10 @@ namespace Blog1.DB.Mapeamento
             HasMany(x => x.Visitas)
                 .WithOptional()
                 .HasForeignKey(x => x.IdPost);
+
+            HasMany(x => x.PostTag)
+                .WithOptional()
+                .HasForeignKey(x => x.IdPost);
         }
     }
 }
