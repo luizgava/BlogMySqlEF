@@ -39,17 +39,57 @@ namespace Blog1.Controllers
             viewModel.Tag = tag;
             viewModel.PaginaAtual = pagina.Value;
             viewModel.Pesquisa = pesquisa;
-            viewModel.Posts = posts.Skip(indicePagina*itensPorPagina).Take(itensPorPagina).ToList();
+            viewModel.Posts = (from p in posts.Skip(indicePagina*itensPorPagina).Take(itensPorPagina)
+                            select new DetalhesPostViewModel
+                            {
+                                Id = p.Id,
+                                Autor = p.Autor,
+                                DataPublicacao = p.DataPublicacao,
+                                Titulo = p.Titulo,
+                                Resumo = p.Resumo,
+                                Visivel = p.Visivel,
+                                QtdeComentarios = p.Comentarios.Count()
+                            }).ToList();
+            viewModel.Tags = (from p in conexao.Tags
+                             where conexao.PostTags.Any(x => x.Tag == p.Tag)
+                            select p).ToList();
             viewModel.TotalPaginas = (int)Math.Ceiling((double)posts.Count() / itensPorPagina);
 
             return View(viewModel);
         }
         #endregion
 
-        #region
+        #region _Paginacao
         public ActionResult _Paginacao()
         {
             return PartialView();
+        }
+        #endregion
+
+        #region Post
+        public ActionResult Post(int id)
+        {
+            var conexaoBanco = new ConexaoBanco();
+            var post = (from p in conexaoBanco.Post
+                        where p.Id == id
+                        select new DetalhesPostViewModel
+                        {
+                            Id = p.Id,
+                            Autor = p.Autor,
+                            DataPublicacao = p.DataPublicacao,
+                            Titulo = p.Titulo,
+                            Resumo = p.Resumo,
+                            Visivel = p.Visivel,
+                            QtdeComentarios = p.Comentarios.Count,
+                            Descricao = p.Descricao,
+                            Tags = p.PostTag.Select(x => x.TagClass).ToList()
+                        }).FirstOrDefault();
+            if (post == null)
+            {
+                throw new Exception(string.Format("Post código {0} não encontrado.", id));
+            }
+
+            return View(post);
         }
         #endregion
     }

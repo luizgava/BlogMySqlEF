@@ -62,11 +62,49 @@ input[type="checkbox"].input-validation-error {
     display: inline-block;
     width: 18px;
     height: 18px;
-    margin-left: 5px;
     cursor: pointer;
 }
 
 /*ÍCONE EXCLUIR*/
 .icone-excluir {
     background: url(../Content/Icones/excluir.png) no-repeat;
+    margin-left: 15px;
+}
+
+/*ÍCONE CALENDÁRIO*/
+.icone-calendario {
+    background: url(../Content/Icones/calendario.png) no-repeat;
+}
+
+/*ÍCONE AUTOR*/
+.icone-autor {
+    background: url(../Content/Icones/autor.png) no-repeat;
+    margin-left: 15px;
+}
+
+/*ÍCONE COMENTÁRIO*/
+.icone-comentario {
+    background: url(../Content/Icones/comentario.png) no-repeat;
+    margin-left: 15px;
+}
+
+/*ÍCONE EDITAR*/
+.icone-editar {
+    background: url(../Content/Icones/editar.png) no-repeat;
+    margin-left: 15px;
+}
+
+.div-imagem {
+    background-size: 18px !important;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+}
+
+.cabecalho-post {
+    
+}
+
+.descricao-post {
+    margin-top: 10px;
 }

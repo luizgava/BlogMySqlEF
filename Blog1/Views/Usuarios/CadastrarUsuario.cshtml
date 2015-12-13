@@ -1,0 +1,34 @@
+﻿@model Blog1.Models.UsuarioViewModel
+@{
+    ViewBag.Title = "Cadastrar usuário";
+}
+@using (Html.BeginForm())
+{
+    <h2>Cadastro de usuário</h2>
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nome)
+        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Nome)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Login)
+        @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Login)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Senha)
+        @Html.PasswordFor(m => m.Senha, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Senha)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmarSenha)
+        @Html.PasswordFor(m => m.ConfirmarSenha, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ConfirmarSenha)
+    </div>
+    <p>
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </p>
+}
+
+

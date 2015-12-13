@@ -10,6 +10,7 @@ using Blog1.Models;
 
 namespace Blog1.Controllers
 {
+    [Authorize]
     public class AdministracaoController : Controller
     {
         #region Index
@@ -27,7 +28,7 @@ namespace Blog1.Controllers
                 DataPublicacao = DateTime.Now,
                 HoraPublicacao = DateTime.Now,
                 Visivel = true,
-                Tags = new List<string>() 
+                Tags = new List<string>()
             };
 
             return View(viewModel);
@@ -47,22 +48,25 @@ namespace Blog1.Controllers
                 post.Titulo = viewModel.Titulo;
                 post.Visivel = viewModel.Visivel;
                 post.PostTag = new List<PostTag>();
-                foreach (var item in viewModel.Tags)
+                if (viewModel.Tags != null)
                 {
-                    var tag = conexaoBanco.Tags.FirstOrDefault(x => x.Tag.ToLower() == item.ToLower());
-                    if (tag == null)
+                    foreach (var item in viewModel.Tags)
                     {
-                        tag = new TagClass
+                        var tag = conexaoBanco.Tags.FirstOrDefault(x => x.Tag.ToLower() == item.ToLower());
+                        if (tag == null)
                         {
-                            Tag = item
-                        };
-                        conexaoBanco.Tags.Add(tag);
+                            tag = new TagClass
+                            {
+                                Tag = item
+                            };
+                            conexaoBanco.Tags.Add(tag);
+                        }
+                        post.PostTag.Add(new PostTag
+                        {
+                            Tag = item,
+                            TagClass = tag
+                        });
                     }
-                    post.PostTag.Add(new PostTag
-                    {
-                        Tag = item,
-                        TagClass = tag
-                    });
                 }
 
                 conexaoBanco.Post.Add(post);
@@ -100,7 +104,7 @@ namespace Blog1.Controllers
                 Autor = post.Autor,
                 Descricao = post.Descricao,
                 Id = post.Id,
-                Tags = post.PostTag.Select(x => x.Tag).ToList() 
+                Tags = post.PostTag.Select(x => x.Tag).ToList()
             };
 
             return View(viewModel);
@@ -128,22 +132,25 @@ namespace Blog1.Controllers
                 {
                     conexaoBanco.PostTags.Remove(item);
                 }
-                foreach (var item in viewModel.Tags)
+                if (viewModel.Tags != null)
                 {
-                    var tag = conexaoBanco.Tags.FirstOrDefault(x => x.Tag.ToLower() == item.ToLower());
-                    if (tag == null)
+                    foreach (var item in viewModel.Tags)
                     {
-                        tag = new TagClass
+                        var tag = conexaoBanco.Tags.FirstOrDefault(x => x.Tag.ToLower() == item.ToLower());
+                        if (tag == null)
                         {
-                            Tag = item
-                        };
-                        conexaoBanco.Tags.Add(tag);
+                            tag = new TagClass
+                            {
+                                Tag = item
+                            };
+                            conexaoBanco.Tags.Add(tag);
+                        }
+                        post.PostTag.Add(new PostTag
+                        {
+                            Tag = item,
+                            TagClass = tag
+                        });
                     }
-                    post.PostTag.Add(new PostTag
-                    {
-                        Tag = item,
-                        TagClass = tag
-                    });
                 }
 
                 try
@@ -157,6 +164,23 @@ namespace Blog1.Controllers
                 }
             }
             return View(viewModel);
+        }
+        #endregion
+
+        #region ExcluirPost
+        public ActionResult ExcluirPost(int id)
+        {
+            var conexaoBanco = new ConexaoBanco();
+            var post = (from p in conexaoBanco.Post
+                        where p.Id == id
+                        select p).FirstOrDefault();
+            if (post == null)
+            {
+                throw new Exception(string.Format("Post código {0} não foi encontrado.", id));
+            }
+            conexaoBanco.Post.Remove(post);
+            conexaoBanco.SaveChanges();
+            return RedirectToAction("Index", "Blog");
         }
         #endregion
     }

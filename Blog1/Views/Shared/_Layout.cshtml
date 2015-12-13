@@ -16,12 +16,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Blog do Luiz", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Blog do Luiz", "Index", "Blog", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Administração", "Index", "Administracao")</li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Administração", "Index", "Administracao")</li>
+                        <li>@Html.ActionLink("Sair", "Sair", "Login")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                    }
                 </ul>
+                <form method="get" class="navbar-form navbar-right">
+                    <div class="form-group">
+                        @Html.TextBox("pesquisa", null, new {placeholder = "Pesquisar", @class = "form-control"})
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -29,7 +42,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year</p>
         </footer>
     </div>
 
