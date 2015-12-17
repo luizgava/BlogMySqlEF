@@ -32,6 +32,7 @@ namespace Blog1.Controllers
             var conexaoBanco = new ConexaoBanco();
             var usuario = (from p in conexaoBanco.Usuarios
                           where p.Login.ToUpper() == viewModel.Login.ToUpper()
+                             && p.Senha == viewModel.Senha
                          select p).FirstOrDefault();
             if (usuario == null)
             {

@@ -19,13 +19,13 @@
     }
     <div class="icone-comentario div-imagem"></div>
     <a href="@Url.Action("Post", "Blog", new
-             {
-                 id = Model.Id,
-                 ano = Model.DataPublicacao.Year,
-                 mes = Model.DataPublicacao.Month,
-                 dia = Model.DataPublicacao.Day,
-                 titulo = Model.Titulo
-             })#comentarios">@Model.QtdeComentarios</a>
+                         {
+                             id = Model.Id,
+                             ano = Model.DataPublicacao.Year,
+                             mes = Model.DataPublicacao.Month,
+                             dia = Model.DataPublicacao.Day,
+                             titulo = Model.Titulo
+                         })#comentarios">@Model.QtdeComentarios</a>
     @if (Request.IsAuthenticated)
     {
         <div class="icone-excluir div-imagem"></div>

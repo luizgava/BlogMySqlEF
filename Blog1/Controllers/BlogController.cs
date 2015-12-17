@@ -144,19 +144,7 @@ namespace Blog1.Controllers
                     ModelState.AddModelError("", exp.Message);
                 }
             }
-            //repreencher viewModel
-            var post = (from p in conexaoBanco.Post
-                        where p.Id == viewModel.Id
-                        select p).First();
-            viewModel.Id = post.Id;
-            viewModel.Autor = post.Autor;
-            viewModel.DataPublicacao = post.DataPublicacao;
-            viewModel.Titulo = post.Titulo;
-            viewModel.Resumo = post.Resumo;
-            viewModel.Visivel = post.Visivel;
-            viewModel.QtdeComentarios = post.Comentarios.Count;
-            viewModel.Descricao = post.Descricao;
-            viewModel.Tags = post.PostTag.Select(x => x.TagClass).ToList();
+            preparaDetalhesPostViewModel(viewModel.Id, viewModel.PaginaAtual, viewModel, conexaoBanco);
             return View(viewModel);
         }
         #endregion
