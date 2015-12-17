@@ -8,7 +8,7 @@ using Blog1.DB.Classes;
 using Blog1.Infra;
 using Blog1.Models;
 
-namespace Blog1.Controllers
+namespace Blog1.Controllers 
 {
     [Authorize]
     public class AdministracaoController : Controller
